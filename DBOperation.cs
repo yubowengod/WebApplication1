@@ -61,11 +61,11 @@ namespace WebApplication1
         /// <param name="d"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        public string identity_result_frompc(string fengxibianhao, string tupianlujing, string a, string b, string c, string d, string e)
+        public string identity_result_frompc(string gongwei,string gongxu,string xiangdian,string fengxileibie, string fengxibianhao, string tupianlujing, string a, string b, string c, string d, string e,string xianlu,string chehao,string chexiang)
         {
             try
             {
-                string Oracle = "INSERT INTO fengxi (gognwei,gongxu,xiangdian,fengxileibie,fengxibianhao,tupianlujing,biaodingzhi,shuipingmax,shuipingmin,chuizhimax,chuizhimin,time)VALUES('工位','工序','项点','缝隙类别','"+fengxibianhao+"','"+tupianlujing+"',"+a+","+b+","+c+","+d+","+e+",to_timestamp('2011-12-15 10:40:10.345', 'yyyy-MM-dd HH24:MI:ss.ff'))";
+                string Oracle = "INSERT INTO fengxi (gognwei,gongxu,xiangdian,fengxileibie,fengxibianhao,tupianlujing,biaodingzhi,shuipingmax,shuipingmin,chuizhimax,chuizhimin,time,xianlu,chehao,chexiang)VALUES('" + gongwei + "','" + gongxu + "','" + xiangdian + "','" + fengxileibie + "','" + fengxibianhao + "','" + tupianlujing + "'," + a + "," + b + "," + c + "," + d + "," + e + ",to_timestamp('2011-12-15 10:40:10.345', 'yyyy-MM-dd HH24:MI:ss.ff'),'" + xianlu + "','" + chehao + "','" + chexiang + "')";
             
                 OracleCommand cmd = new OracleCommand(Oracle, OracleCon);
                 cmd.ExecuteNonQuery();

@@ -53,28 +53,32 @@ namespace WebApplication1
             return gap_upload_identity_result_class.calculate_gap_dll(gap_flag, bytestr);
         }
         [WebMethod(Description = "gap_upload_identity_result_FileUploadImage")]
-        public string gap_upload_identity_result_FileUploadImage(string gap_flag, string bytestr)
+        public string gap_upload_identity_result_FileUploadImage(string xianlu_chehao_chexiang, string gognwei_gongxu_xiangdian, string fengxileibie, string gap_flag, string bytestr)
         {
+            string[] xianlu_chehao_chexiang_split = xianlu_chehao_chexiang.Split(new char[] { ',' });
+
+            string[] gognwei_gongxu_xiangdian_split = gognwei_gongxu_xiangdian.Split(new char[] { ',' });
+
             string return_result = "";
 
-            string string_to_file_pic_path = gap_upload_identity_result_class.gap_upload_identity_result_FileUploadImage(gap_flag, bytestr);
+            string string_to_file_pic_path = gap_upload_identity_result_class.gap_upload_identity_result_FileUploadImage(gap_flag, bytestr);//生成pic
 
-            string file_identity_reslt = gap_class.calculate_gap_dll(Convert.ToInt32(gap_flag), string_to_file_pic_path); 
+            string file_identity_reslt = gap_class.calculate_gap_dll(Convert.ToInt32(gap_flag), string_to_file_pic_path);//返回结果
 
-            string[] file_identity_reslt_split = file_identity_reslt.Split(new char[] {','});
+            string[] file_identity_reslt_split = file_identity_reslt.Split(new char[] { ',' });
 
 
-            //if (file_identity_reslt_split.Length == 5)
-            //{
-            //    //identity_result_frompc( string fengxibianhao, string tupianlujing, string a, string b, string c, string d, string e)
-            //    dbOperation.identity_result_frompc(gap_flag, string_to_file_pic_path, file_identity_reslt_split[0], file_identity_reslt_split[1], file_identity_reslt_split[2], file_identity_reslt_split[3], file_identity_reslt_split[4]);
-            //}
+            if (file_identity_reslt_split.Length == 5)
+            {
+                //identity_result_frompc(string gongwei,string gongxu,string xiangdian,string fengxileibie, string fengxibianhao, string tupianlujing, string a, string b, string c, string d, string e,string xianlu,string chehao,string chexiang)
+                dbOperation.identity_result_frompc(gognwei_gongxu_xiangdian_split[0], gognwei_gongxu_xiangdian_split[1], gognwei_gongxu_xiangdian_split[2], fengxileibie, gap_flag, string_to_file_pic_path, file_identity_reslt_split[0], file_identity_reslt_split[1], file_identity_reslt_split[2], file_identity_reslt_split[3], file_identity_reslt_split[4], xianlu_chehao_chexiang_split[0], xianlu_chehao_chexiang_split[1], xianlu_chehao_chexiang_split[2]);
+            }
 
-            //else if (file_identity_reslt_split.Length == 3)
-            //{
-            //    //identity_result_frompc( string fengxibianhao, string tupianlujing, string a, string b, string c, string d, string e)
-            //    dbOperation.identity_result_frompc(gap_flag, string_to_file_pic_path, file_identity_reslt_split[0], file_identity_reslt_split[1], file_identity_reslt_split[2], file_identity_reslt_split[2], file_identity_reslt_split[2]);
-            //}
+            else if (file_identity_reslt_split.Length == 3)
+            {
+                //identity_result_frompc(string gongwei,string gongxu,string xiangdian,string fengxileibie, string fengxibianhao, string tupianlujing, string a, string b, string c, string d, string e,string xianlu,string chehao,string chexiang)
+                dbOperation.identity_result_frompc(gognwei_gongxu_xiangdian_split[0], gognwei_gongxu_xiangdian_split[1], gognwei_gongxu_xiangdian_split[2], fengxileibie, gap_flag, string_to_file_pic_path, file_identity_reslt_split[0], file_identity_reslt_split[1], file_identity_reslt_split[2], file_identity_reslt_split[2], file_identity_reslt_split[2], xianlu_chehao_chexiang_split[0], xianlu_chehao_chexiang_split[1], xianlu_chehao_chexiang_split[2]);
+            }
             return_result = return_result + string_to_file_pic_path + "@";
 
             return_result = return_result + file_identity_reslt + "@";
