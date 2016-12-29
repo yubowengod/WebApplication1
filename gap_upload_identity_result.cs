@@ -13,20 +13,14 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
 using System.IO;
- 
- 
- 
- 
- 
-
 
 namespace WebApplication1
 {
     public class gap_upload_identity_result
     {
         /*
-             * gap_identity         
-             */
+         * * gap_identity
+         */
         [DllImport("ConsoleApplication3.dll", EntryPoint = "calculate_gap1", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Winapi)]
 
         public static extern IntPtr calculate_gap1(string teststr);
@@ -61,7 +55,9 @@ namespace WebApplication1
             string str = Marshal.PtrToStringAnsi(intPtr);
             return str;
         }
-        
+
+        public string filepath_web;
+        public string filepath_test;
 
         public string calculate_gap_dll(string gap_flag, string pic_path)
         {
@@ -101,8 +97,7 @@ namespace WebApplication1
             {
                 IntPtr intPtr = calculate_gap7(pic_path);
                 str = Marshal.PtrToStringAnsi(intPtr);
-            }
-             
+            }             
 
             return str;
         }
@@ -120,7 +115,11 @@ namespace WebApplication1
             {
                 name = DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second + "_" + DateTime.Now.Millisecond;
 
-                string filepath = "D:\\web\\WebApplication1\\webnnn\\" + name + ".jpg";
+                string filepath = "D:/web/WebApplication1/webnnn/" + name + ".jpg";
+
+                filepath_test = "http://192.168.155.1:8011/webnnn/" + name + ".jpg";
+
+                filepath_web = "http://127.0.0.1:8011/webnnn/" + name + ".jpg";
 
                 StringToFile(bytestr, filepath);
 
@@ -169,7 +168,5 @@ namespace WebApplication1
             fs.Close();
             return true;
         }
-
-
     }
 }

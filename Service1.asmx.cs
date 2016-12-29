@@ -31,6 +31,33 @@ namespace WebApplication1
 
         gap_upload_identity_result gap_upload_identity_result_class = new gap_upload_identity_result();
 
+
+        [WebMethod(Description = "test")]
+        public bool insert_picInfo_into_UPDATE_PICTURE_INFO(
+            string gongwei,
+            string gongxu,
+            string xiangdian,
+            string uploaduser,
+            string xianlu,
+            string chehao,
+            string chexiang,
+            string tupianlujing,
+            string updatetime,
+            string phonetupianlujing) {
+                return dbOperation.insert_picInfo_into_UPDATE_PICTURE_INFO(
+                gongwei,
+                gongxu,
+                xiangdian,
+                uploaduser,
+                xianlu,
+                chehao,
+                chexiang,
+                tupianlujing,
+                updatetime,
+                phonetupianlujing);
+            }
+   
+
         [WebMethod]
         public string calculate_gap_only_1(int flag, string path) 
         {
@@ -52,8 +79,21 @@ namespace WebApplication1
         {
             return gap_upload_identity_result_class.calculate_gap_dll(gap_flag, bytestr);
         }
+        [WebMethod(Description = "select_all_from_UPDATE_PICTURE_INFO_table")]
+        //public string[] select_all_from_identity_table(string flag,string user,string xianlu,string chehao,string chexiang,string gw, string gx,string xd)
+        public string[] select_all_from_UPDATE_PICTURE_INFO_table(string flag, string updatetime, string user, string xianlu, string chehao, string chexiang, string gw, string gx, string xd)
+        {
+            return dbOperation.select_all_from_UPDATE_PICTURE_INFO_table(flag, updatetime, user, xianlu, chehao, chexiang, gw, gx, xd).ToArray();
+        }
+
+        [WebMethod(Description = "select_all_from_identity_table")]
+        //public string[] select_all_from_identity_table(string flag,string user,string xianlu,string chehao,string chexiang,string gw, string gx,string xd)
+        public string[] select_all_from_identity_table(string flag,string updatetime, string user, string xianlu, string chehao, string chexiang, string gw, string gx, string xd)
+        {
+            return dbOperation.select_all_from_identity_table(flag, updatetime, user, xianlu, chehao, chexiang, gw, gx, xd).ToArray();
+        }
         [WebMethod(Description = "gap_upload_identity_result_FileUploadImage")]
-        public string gap_upload_identity_result_FileUploadImage(string xianlu_chehao_chexiang, string gognwei_gongxu_xiangdian, string fengxileibie, string gap_flag, string bytestr)
+        public string gap_upload_identity_result_FileUploadImage(string uploaduser,string xianlu_chehao_chexiang, string gognwei_gongxu_xiangdian, string fengxileibie, string gap_flag, string bytestr, string updatetime)
         {
             string[] xianlu_chehao_chexiang_split = xianlu_chehao_chexiang.Split(new char[] { ',' });
 
@@ -70,18 +110,20 @@ namespace WebApplication1
 
             if (file_identity_reslt_split.Length == 5)
             {
-                //identity_result_frompc(string gongwei,string gongxu,string xiangdian,string fengxileibie, string fengxibianhao, string tupianlujing, string a, string b, string c, string d, string e,string xianlu,string chehao,string chexiang)
-                dbOperation.identity_result_frompc(gognwei_gongxu_xiangdian_split[0], gognwei_gongxu_xiangdian_split[1], gognwei_gongxu_xiangdian_split[2], fengxileibie, gap_flag, string_to_file_pic_path, file_identity_reslt_split[0], file_identity_reslt_split[1], file_identity_reslt_split[2], file_identity_reslt_split[3], file_identity_reslt_split[4], xianlu_chehao_chexiang_split[0], xianlu_chehao_chexiang_split[1], xianlu_chehao_chexiang_split[2]);
+                //identity_result_frompc(string gongwei,string gongxu,string xiangdian,string fengxileibie, string fengxibianhao, string tupianlujing, string phonetupianlujing,string a, string b, string c, string d, string e,string xianlu,string chehao,string chexiang)
+                dbOperation.identity_result_frompc(uploaduser,gognwei_gongxu_xiangdian_split[0], gognwei_gongxu_xiangdian_split[1], gognwei_gongxu_xiangdian_split[2], fengxileibie, gap_flag, gap_upload_identity_result_class.filepath_web, gap_upload_identity_result_class.filepath_test, file_identity_reslt_split[0], file_identity_reslt_split[1], file_identity_reslt_split[2], file_identity_reslt_split[3], file_identity_reslt_split[4], updatetime, xianlu_chehao_chexiang_split[0], xianlu_chehao_chexiang_split[1], xianlu_chehao_chexiang_split[2]);
             }
 
             else if (file_identity_reslt_split.Length == 3)
             {
                 //identity_result_frompc(string gongwei,string gongxu,string xiangdian,string fengxileibie, string fengxibianhao, string tupianlujing, string a, string b, string c, string d, string e,string xianlu,string chehao,string chexiang)
-                dbOperation.identity_result_frompc(gognwei_gongxu_xiangdian_split[0], gognwei_gongxu_xiangdian_split[1], gognwei_gongxu_xiangdian_split[2], fengxileibie, gap_flag, string_to_file_pic_path, file_identity_reslt_split[0], file_identity_reslt_split[1], file_identity_reslt_split[2], file_identity_reslt_split[2], file_identity_reslt_split[2], xianlu_chehao_chexiang_split[0], xianlu_chehao_chexiang_split[1], xianlu_chehao_chexiang_split[2]);
+                dbOperation.identity_result_frompc(uploaduser, gognwei_gongxu_xiangdian_split[0], gognwei_gongxu_xiangdian_split[1], gognwei_gongxu_xiangdian_split[2], fengxileibie, gap_flag, gap_upload_identity_result_class.filepath_web, gap_upload_identity_result_class.filepath_test, file_identity_reslt_split[0], file_identity_reslt_split[1], file_identity_reslt_split[2], file_identity_reslt_split[2], file_identity_reslt_split[2], updatetime, xianlu_chehao_chexiang_split[0], xianlu_chehao_chexiang_split[1], xianlu_chehao_chexiang_split[2]);
             }
-            return_result = return_result + string_to_file_pic_path + "@";
+            //return_result = return_result + string_to_file_pic_path + "@";
 
-            return_result = return_result + file_identity_reslt + "@";
+            return_result = return_result + gap_upload_identity_result_class.filepath_test + "@";
+
+            return_result = return_result + file_identity_reslt + "@";//返回的错误信息
 
             return return_result;
         }
@@ -165,8 +207,7 @@ namespace WebApplication1
             {
                 //需要注意的是,需要对这个物理路径有足够的权限,否则会报错 
                 Directory.CreateDirectory(savePath);
-                return true;
-               
+                return true;               
             }
             else 
             {
@@ -176,7 +217,18 @@ namespace WebApplication1
 
 
         [WebMethod(Description = "上传图片_insert_webnn_http://192.168.155.1:8011/webnnn/")]
-        public bool FileUploadImage(string title,string contect,string bytestr)
+        public bool FileUploadImage(
+            string bytestr, 
+            string gongwei,
+            string gongxu,
+            string xiangdian,
+            string uploaduser,
+            string xianlu,
+            string chehao,
+            string chexiang,
+            string tupianlujing,
+            string updatetime,
+            string phonetupianlujing)
         {
             string name = "";
             if (bytestr == "")
@@ -185,12 +237,23 @@ namespace WebApplication1
             }
             try
             {
-                name = DateTime.Now.Year.ToString() + DateTime.Now.Month + DateTime.Now.Day + DateTime.Now.Hour + DateTime.Now.Minute +"_"+ DateTime.Now.Second +"_"+ DateTime.Now.Millisecond;
+                name = DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second + "_" + DateTime.Now.Millisecond;
 
-                bool flag = StringToFile(bytestr,"D:\\web\\WebApplication1\\webnnn\\" + name + ".jpg");
-                
-                //new
+                bool flag = StringToFile(bytestr, "D:\\web\\WebApplication1\\webnnn\\" + name + ".jpg");     
+
                 dbOperation.insert_pic_Info("name","http://192.168.155.1:8011/webnnn/" + name + ".jpg");
+
+                dbOperation.insert_picInfo_into_UPDATE_PICTURE_INFO(
+                gongwei,
+                gongxu,
+                xiangdian,
+                uploaduser,
+                xianlu,
+                chehao,
+                chexiang,
+                "http://127.0.0.1:8011/webnnn/" + name + ".jpg",
+                updatetime,
+                "http://192.168.155.1:8011/webnnn/" + name + ".jpg");
 
                 return true;
             }
@@ -228,7 +291,9 @@ namespace WebApplication1
             //string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/beapp/" + fileName;  
 
             System.IO.FileStream fs = new System.IO.FileStream(fileName,System.IO.FileMode.Create);
+
             System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs);
+
             if (!string.IsNullOrEmpty(base64String) && File.Exists(fileName))
             {
                 bw.Write(Convert.FromBase64String(base64String));
